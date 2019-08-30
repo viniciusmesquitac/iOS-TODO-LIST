@@ -7,18 +7,39 @@
 //
 
 import UIKit
+import CoreData
 
 class SecondViewControler: UITableViewController {
 
-    var cars = [String]()
-    var newCar: String = ""
+    
+    
+    @IBOutlet var tableview: UITableView!
+    
+    
+    let coreDao = CoreDao<Notes>(with: "DataModel")
+    
+    var notes = [Notes]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        cars = ["BMW","Audi","Volkswagen", "Lamborgini"]
-        
+        notes = coreDao.fetchAll()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        notes = coreDao.fetchAll()
+        tableview.reloadData()
+    }
+    
+    @IBAction func addCar(_ sender: Any) {
+        performSegue(withIdentifier: "mySegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "mySegue" {
+         // let controller = segue.destination as! ThirdViewController
+         //   controller.delegate = self
+        }
     }
     
     // 1
@@ -28,17 +49,35 @@ class SecondViewControler: UITableViewController {
     
     // 2
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cars.count
+        return notes.count
     }
     
-    // 3
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            notes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
+    }
+    
+    // 3x
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "carCell", for: indexPath)
     
         
         
-        cell.textLabel?.text = cars[indexPath.row]
+        cell.textLabel?.text =  notes[indexPath.row].context
         
         return cell
     }
+}
+
+extension SecondViewControler {
+    
+//    func senderNote(note: Notes) {
+//        note.append(note.context)
+//        tableview.reloadData()
+//    }
+    
 }

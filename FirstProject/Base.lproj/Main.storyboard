@@ -10,22 +10,51 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Third View Controller-->
         <scene sceneID="ydk-DK-gVn">
             <objects>
-                <viewController id="mPB-IC-hC2" sceneMemberID="viewController">
+                <viewController id="mPB-IC-hC2" customClass="ThirdViewController" customModule="FirstProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W1z-a3-lST">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Context" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Z-2g-i13">
+                                <rect key="frame" x="23" y="168" width="275" height="30"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" textContentType="name"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MME-cK-K4C">
+                                <rect key="frame" x="105" y="222" width="111" height="37"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Send"/>
+                                <connections>
+                                    <action selector="sendNote:" destination="mPB-IC-hC2" eventType="touchUpInside" id="UIT-EL-qYy"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hhl-f8-O2b" firstAttribute="trailing" secondItem="MME-cK-K4C" secondAttribute="trailing" constant="104" id="2Fi-BN-HGk"/>
+                            <constraint firstItem="Z3Z-2g-i13" firstAttribute="top" secondItem="hhl-f8-O2b" secondAttribute="top" constant="85" id="3hG-QV-gfU"/>
+                            <constraint firstItem="MME-cK-K4C" firstAttribute="top" secondItem="Z3Z-2g-i13" secondAttribute="bottom" constant="24" id="96U-qv-M9k"/>
+                            <constraint firstItem="MME-cK-K4C" firstAttribute="leading" secondItem="hhl-f8-O2b" secondAttribute="leading" constant="105" id="Ase-j0-erC"/>
+                            <constraint firstItem="Z3Z-2g-i13" firstAttribute="leading" secondItem="hhl-f8-O2b" secondAttribute="leading" constant="23" id="JrR-F4-nbM"/>
+                            <constraint firstItem="hhl-f8-O2b" firstAttribute="trailing" secondItem="Z3Z-2g-i13" secondAttribute="trailing" constant="22" id="lK1-YR-DOr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="hhl-f8-O2b"/>
                     </view>
+                    <connections>
+                        <outlet property="context" destination="Z3Z-2g-i13" id="7ai-4h-zpf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GeJ-Kq-OXY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="818" y="40"/>
+            <point key="canvasLocation" x="817.5" y="40"/>
         </scene>
-        <!--Second View Controler-->
+        <!--Task-->
         <scene sceneID="Exr-id-dQV">
             <objects>
                 <tableViewController id="PTW-Ns-bT5" customClass="SecondViewControler" customModule="FirstProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,11 +77,16 @@
                             <outlet property="delegate" destination="PTW-Ns-bT5" id="ZEn-aM-T5W"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="XNF-bp-SbP">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="2Ii-20-FiT"/>
+                    <navigationItem key="navigationItem" title="Task" id="XNF-bp-SbP">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="2Ii-20-FiT">
+                            <connections>
+                                <action selector="addCar:" destination="PTW-Ns-bT5" id="r7J-Fc-Z8o"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="mPB-IC-hC2" kind="presentation" id="BBL-kS-db4"/>
+                        <outlet property="tableview" destination="gHo-8D-G1P" id="jei-CB-4lF"/>
+                        <segue destination="mPB-IC-hC2" kind="show" identifier="mySegue" id="5gQ-u2-0Wr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTs-w4-OH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -64,7 +98,7 @@
             <objects>
                 <navigationController id="aWf-rG-4QL" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4ac-1T-kAU">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
